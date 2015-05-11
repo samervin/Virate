@@ -4,27 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VirateEngine
+namespace VirateEngine.Locations
 {
-    public class Country
+    public abstract class Location
     {
-        public string Name { get; private set; }
-        public int HealthyPopulation { get; set; }
-        public int SickPopulation { get; set; }
-        public double BirthRate { get; set; }
-        public double DeathRate { get; set; }
-        public int GDP { get; set; }
+        public string Name { get; set; }
+        public int HealthyPopulation { get; private set; }
+        public int SickPopulation { get; private set; }
+        public double BirthRate { get; private set; }
+        public double DeathRate { get; private set; }
 
         private Virus virus;
 
-        public Country(string name, int healthyPopulation, int sickPopulation, double birthRate, double deathRate, int gdp, Virus vir)
+        public Location(string name, int healthyPop, int sickPop, double birth, double death, Virus vir)
         {
             this.Name = name;
-            this.HealthyPopulation = healthyPopulation;
-            this.SickPopulation = sickPopulation;
-            this.BirthRate = birthRate;
-            this.DeathRate = deathRate;
-            this.GDP = gdp;
+            this.HealthyPopulation = healthyPop;
+            this.SickPopulation = sickPop;
+            this.BirthRate = birth;
+            this.DeathRate = death;
             this.virus = vir;
         }
 
@@ -37,11 +35,6 @@ namespace VirateEngine
             if (newInfections > HealthyPopulation) newInfections = HealthyPopulation;
             if (newCleansings > SickPopulation) newCleansings = SickPopulation;
 
-            //Console.WriteLine("\nadding " + naturalBirthsAndDeaths + " natural births and deaths");
-            //Console.WriteLine("adding " + newInfections + " new infections");
-            //Console.WriteLine("adding " + newCleansings + " new cleansings");
-            //Console.WriteLine("killing " + infectedDeaths + " infected people");
-
             HealthyPopulation += (int)(naturalBirthsAndDeaths - newInfections + newCleansings);
             SickPopulation += (int)(newInfections - newCleansings - infectedDeaths);
 
@@ -49,26 +42,26 @@ namespace VirateEngine
             if (SickPopulation < 0) SickPopulation = 0;
         }
 
-        private double getNaturalBirthsAndDeaths()
+        protected double getNaturalBirthsAndDeaths()
         {
             double births = HealthyPopulation * BirthRate;
             double deaths = HealthyPopulation * DeathRate;
             return (births - deaths);
         }
 
-        private double getNewInfections()
+        protected double getNewInfections()
         {
             double infections = SickPopulation * .01 * virus.getInfectivityLevel();
             return infections;
         }
 
-        private double getNewCleansings()
+        protected double getNewCleansings()
         {
             double cleansings = SickPopulation * .01 / virus.getSicknessLevel(); //TODO: this calculation is weird
             return cleansings;
         }
 
-        private double getInfectedDeaths()
+        protected double getInfectedDeaths()
         {
             double deaths = SickPopulation * .000001 * virus.getSicknessLevel();
             return deaths;

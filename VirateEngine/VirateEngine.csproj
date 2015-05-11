@@ -39,7 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Country.cs" />
+    <Compile Include="Locations\City.cs" />
+    <Compile Include="Locations\Country.cs" />
+    <Compile Include="Locations\Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Virus.cs" />
     <Compile Include="World.cs" />
