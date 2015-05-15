@@ -12,12 +12,13 @@ namespace VirateEngine
         public string DNA { get; private set; }
 
         private Random rand;
+        private const int MAX_SIZE = 100;
 
         public Virus(string name)
         {
             this.rand = new Random();
             this.Name = name;
-            this.DNA = generateDNA(20);
+            this.DNA = generateDNA(10);
         }
 
         public bool canEvolve(int currentDay)
@@ -38,6 +39,12 @@ namespace VirateEngine
             StringBuilder temp = new StringBuilder(DNA);
             temp[index] = newBase;
             DNA = temp.ToString();
+
+            if (rand.Next(0, getEvolutionRate()) == 0)
+            {
+                DNA = DNA + generateDNABase();
+                Console.WriteLine("You got a new one!");
+            }
         }
 
         public void updateDNAWithBase(char newBase)
@@ -83,7 +90,7 @@ namespace VirateEngine
         // Evolution rate -- higher G means lower number of days to evolution
         public int getEvolutionRate()
         {
-            return DNA.Length - DNA.Count(f => f == 'G');
+            return MAX_SIZE - DNA.Count(f => f == 'G');
         }
 
         // Treatment resistance -- higher is better

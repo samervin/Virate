@@ -57,6 +57,7 @@ namespace Virate
                 buttonEvolutionRate.Visibility = Visibility.Hidden;
                 buttonTreatmentResistance.Visibility = Visibility.Hidden;
                 buttonAdvanceDay.Visibility = Visibility.Visible;
+                buttonAdvanceToEvolution.Visibility = Visibility.Visible;
                 buttonAdvanceYears.Visibility = Visibility.Visible;
             }
             else
@@ -66,6 +67,7 @@ namespace Virate
                 buttonEvolutionRate.Visibility = Visibility.Visible;
                 buttonTreatmentResistance.Visibility = Visibility.Visible;
                 buttonAdvanceDay.Visibility = Visibility.Hidden;
+                buttonAdvanceToEvolution.Visibility = Visibility.Hidden;
                 buttonAdvanceYears.Visibility = Visibility.Hidden;
             }
 
@@ -126,6 +128,15 @@ namespace Virate
         private void buttonAdvanceYears_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < 3650; i++)
+            {
+                world.advanceDay();
+            }
+            updateLabels();
+        }
+
+        private void buttonAdvanceToEvolution_Click(object sender, RoutedEventArgs e)
+        {
+            while (!virus.canEvolve(world.Day))
             {
                 world.advanceDay();
             }

@@ -21,7 +21,7 @@
         <Label Content="Current Day: " HorizontalAlignment="Left" Margin="435,207,0,0" VerticalAlignment="Top"/>
         <Label x:Name="labelCurrentDay" Content="Label" HorizontalAlignment="Left" Margin="519,207,0,0" VerticalAlignment="Top"/>
         <Button x:Name="buttonAdvanceDay" Content="1 Day" HorizontalAlignment="Left" Margin="482,238,0,0" VerticalAlignment="Top" Width="75" Click="buttonAdvanceDay_Click"/>
-        <Button x:Name="buttonAdvanceYears" Content="10 Years" HorizontalAlignment="Left" Margin="400,238,0,0" VerticalAlignment="Top" Width="75" Click="buttonAdvanceYears_Click"/>
+        <Button x:Name="buttonAdvanceYears" Content="10 Years" HorizontalAlignment="Left" Margin="322,238,0,0" VerticalAlignment="Top" Width="75" Click="buttonAdvanceYears_Click"/>
 
         <ComboBox x:Name="comboCountries" HorizontalAlignment="Left" Margin="400,10,0,0" VerticalAlignment="Top" Width="181" SelectionChanged="comboCountries_SelectionChanged" SelectedIndex="0"/>
         <Label Content="Healthy Population:" HorizontalAlignment="Left" Margin="400,37,0,0" VerticalAlignment="Top"/>
@@ -34,6 +34,7 @@
         <Label x:Name="labelBirthRate" Content="Label" HorizontalAlignment="Left" Margin="519,99,0,0" VerticalAlignment="Top"/>
         <Label x:Name="labelDeathRate" Content="Label" HorizontalAlignment="Left" Margin="519,130,0,0" VerticalAlignment="Top"/>
         <Label x:Name="labelGDP" Content="Label" HorizontalAlignment="Left" Margin="519,161,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="buttonAdvanceToEvolution" Content="Evolve Now" HorizontalAlignment="Left" Margin="402,238,0,0" VerticalAlignment="Top" Width="75" Click="buttonAdvanceToEvolution_Click"/>
 
     </Grid>
 </Window>
