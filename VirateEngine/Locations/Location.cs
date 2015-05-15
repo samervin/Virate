@@ -9,14 +9,15 @@ namespace VirateEngine.Locations
     public abstract class Location
     {
         public string Name { get; set; }
-        public int HealthyPopulation { get; private set; }
-        public int SickPopulation { get; private set; }
+        public long HealthyPopulation { get; private set; }
+        public long SickPopulation { get; private set; }
         public double BirthRate { get; private set; }
         public double DeathRate { get; private set; }
 
         private Virus virus;
+        private Random rand;
 
-        public Location(string name, int healthyPop, int sickPop, double birth, double death, Virus vir)
+        public Location(string name, long healthyPop, long sickPop, double birth, double death, Virus vir)
         {
             this.Name = name;
             this.HealthyPopulation = healthyPop;
@@ -24,6 +25,7 @@ namespace VirateEngine.Locations
             this.BirthRate = birth;
             this.DeathRate = death;
             this.virus = vir;
+            this.rand = new Random();
         }
 
         public void updatePopulation()
@@ -57,13 +59,23 @@ namespace VirateEngine.Locations
 
         protected double getNewCleansings()
         {
-            double cleansings = SickPopulation * .01 / virus.getSicknessLevel(); //TODO: this calculation is weird
+            double cleansings = (5 - virus.getTreatmentResistance()) * .01 * SickPopulation;
             return cleansings;
         }
 
         protected double getInfectedDeaths()
         {
-            double deaths = SickPopulation * .000001 * virus.getSicknessLevel();
+            // Keeping this efficient: we want to roll the dice, but not do a silly amount of calculations
+            // This splits the population into (roughly) 10 parts and rolls for each part
+
+            double deaths = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                if (rand.Next(0, 1000) <= virus.getSicknessLevel())
+                {
+                    deaths += (SickPopulation / 10);
+                }
+            }
             return deaths;
         }
     }

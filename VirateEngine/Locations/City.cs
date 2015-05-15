@@ -8,7 +8,7 @@ namespace VirateEngine
 {
     public class City : Locations.Location
     {
-        public City(string name, int healthyPop, int sickPop, double birth, double death, Virus vir)
+        public City(string name, long healthyPop, long sickPop, double birth, double death, Virus vir)
             : base(name, healthyPop, sickPop, birth, death, vir)
         {
         }

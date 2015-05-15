@@ -8,29 +8,29 @@ namespace VirateEngine
 {
     public class Country : Locations.Location
     {
-        public new int HealthyPopulation {
+        public new long HealthyPopulation {
             get
             {
-                int citySum = cities.Sum(c => c.HealthyPopulation);
+                long citySum = cities.Sum(c => c.HealthyPopulation);
                 return citySum + HealthyRuralPopulation;
             }
         }
-        public new int SickPopulation {
+        public new long SickPopulation {
             get
             {
-                int citySum = cities.Sum(c => c.SickPopulation);
+                long citySum = cities.Sum(c => c.SickPopulation);
                 return citySum + SickRuralPopulation;
             }
         }
 
-        public int HealthyRuralPopulation { get; set; }
-        public int SickRuralPopulation { get; set; }
+        public long HealthyRuralPopulation { get; set; }
+        public long SickRuralPopulation { get; set; }
         public int GDP { get; set; }
 
         private Virus virus;
         private List<City> cities;
 
-        public Country(string name, int healthyRuralPopulation, int sickRuralPopulation, double birth, double death, int gdp, List<City> citylist, Virus vir)
+        public Country(string name, long healthyRuralPopulation, long sickRuralPopulation, double birth, double death, int gdp, List<City> citylist, Virus vir)
             : base(name, healthyRuralPopulation, sickRuralPopulation, birth, death, vir)
         {
             this.HealthyRuralPopulation = healthyRuralPopulation;
